@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate, Navigate } from "react-router-dom";
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+// axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:4000/api/';
+
 
 const setAuthHeader = token => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -11,11 +14,22 @@ const clearAuthHeader = () => {
     axios.defaults.headers.common.Authorization = '';
 };
 
-export const signup = createAsyncThunk('auth/signup', async (credentials,
+export const signup = createAsyncThunk('users/signup', async (credentials,
     { rejectWithValue }) => {
-    try {
-        const { data } = await axios.post('users/signup', credentials)
-        setAuthHeader(data.token)
+        console.log('zxcv')
+        try {
+            const { data } = await axios.post('users/signup', credentials)
+            
+            console.log("data", data)
+            // navigate(`http://localhost:4000/api/users/verify/${data.verificationCode}`)
+            const {data: dataVerified} = await axios.get(`users/verify/${data.user.verificationCode}`)
+            console.log("dataVerified", dataVerified)
+            // const {data: dataRes} = await axios.post('users/login', {email: credentials.name, password: credentials.password})
+            // console.log("dataRes", dataRes)
+
+            // const navigate = useNavigate()
+            // navigate("/login")
+            // setAuthHeader(data.token)
         return data
     } catch (error) {
         if (error.response.status === 400) {
@@ -29,6 +43,7 @@ export const login = createAsyncThunk('auth/login',
     async (credentials, { rejectWithValue }) => {
         try {
             const { data } = await axios.post('users/login', credentials)
+            console.log("data", data)
             setAuthHeader(data.token)
             return data
         } catch (error) {
@@ -42,7 +57,7 @@ export const login = createAsyncThunk('auth/login',
 export const logout = createAsyncThunk('auth/logout', async (credentials,
     { rejectWithValue }) => {
     try {
-        const { data } = await axios.post('users/logout', credentials)
+        const { data } = await axios.patch('users/logout', credentials)
         clearAuthHeader()
         return data
     } catch (error) {

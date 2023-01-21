@@ -72,6 +72,15 @@ const SignupForm = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(signup({ name, email, password }));
+    // let isSignedUp = false
+    // console.log('asdf')
+    // isSignedUp = signup({ name, email, password })
+    // console.log('pipoi')
+
+    if (authData.user.email) {
+      console.log('qwer')
+      navigate("/login")
+    }
   };
 
   if (authData.isLoggedIn) {
@@ -103,17 +112,6 @@ const SignupForm = () => {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required

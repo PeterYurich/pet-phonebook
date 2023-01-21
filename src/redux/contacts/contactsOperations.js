@@ -6,6 +6,7 @@ const {REACT_APP_BASE_URL} = process.env
 // axios.defaults.baseURL = 'https://connections-api.herokuapp.com'
 axios.defaults.baseURL = `${REACT_APP_BASE_URL}/api`;
 
+
 export const fetchContacts = createAsyncThunk("contacts/fetchAll",
     async (_, thunkAPI) => {
         try {

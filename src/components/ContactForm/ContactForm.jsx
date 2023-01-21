@@ -22,7 +22,7 @@ import { Blocks } from 'react-loader-spinner';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const contacts = useSelector(selectContacts);
   const contactsStatus = useSelector(selectContactsStatus);
 
@@ -37,7 +37,7 @@ const ContactForm = () => {
         setName(inputValue);
         break;
       case 'phone':
-        setNumber(inputValue);
+        setPhone(inputValue);
         break;
       default:
         return;
@@ -57,14 +57,14 @@ const ContactForm = () => {
       alert(`A contact with the name "${name}" already exists!`);
       return;
     }
-    if (name === '' || number === '') {
+    if (name === '' || phone === '') {
       alert('Fill required fields, please!');
       return;
     }
 
-    dispatch(addContact({ name, number }));
+    dispatch(addContact({ name, phone }));
     setName('');
-    setNumber('');
+    setPhone('');
     Notify.success(`${name} has added to you phonebook!`);
   };
   const theme = createTheme();
@@ -114,7 +114,7 @@ const ContactForm = () => {
               id="phone"
               name="phone"
               onChange={inputController}
-              value={number}
+              value={phone}
             />
 
             <Button

@@ -16,14 +16,11 @@ const clearAuthHeader = () => {
 
 export const signup = createAsyncThunk('users/signup', async (credentials,
     { rejectWithValue }) => {
-        console.log('zxcv')
         try {
             const { data } = await axios.post('users/signup', credentials)
             
-            console.log("data", data)
             // navigate(`http://localhost:4000/api/users/verify/${data.verificationCode}`)
-            const {data: dataVerified} = await axios.get(`users/verify/${data.user.verificationCode}`)
-            console.log("dataVerified", dataVerified)
+            await axios.get(`users/verify/${data.user.verificationCode}`)
             // const {data: dataRes} = await axios.post('users/login', {email: credentials.name, password: credentials.password})
             // console.log("dataRes", dataRes)
 
@@ -43,7 +40,6 @@ export const login = createAsyncThunk('auth/login',
     async (credentials, { rejectWithValue }) => {
         try {
             const { data } = await axios.post('users/login', credentials)
-            console.log("data", data)
             setAuthHeader(data.token)
             return data
         } catch (error) {

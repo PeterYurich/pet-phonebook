@@ -33,7 +33,7 @@ const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const handleDelete = (id, name) => {
     dispatch(deleteContact(id));
-    Notify.info(`${name} is deleted from you phonebook succesfull!`);
+    Notify.info(`${name} is deleted from you phonebook successfully!`);
   };
 
   const toRender = useSelector(visibleContacts);
@@ -45,7 +45,7 @@ const ContactList = () => {
       {!contacts.isLoading &&
         toRender.map(person => {
           return (
-            <li className={css.contact} key={person.id}>
+            <li className={css.contact} key={person._id}>
               <Typography
                 sx={{
                   width: '300px',
@@ -61,7 +61,7 @@ const ContactList = () => {
                   sx={{ visibility: 'none' }}
                   aria-label="delete"
                   size="small"
-                  onClick={() => handleDelete(person.id, person.name)}
+                  onClick={() => handleDelete(person._id, person.name)}
                 >
                   <DeleteOutlinedIcon />
                 </IconButton>

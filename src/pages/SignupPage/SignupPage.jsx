@@ -78,7 +78,6 @@ const SignupForm = () => {
     // console.log('pipoi')
 
     if (authData.user.email) {
-      console.log('qwer')
       navigate("/login")
     }
   };

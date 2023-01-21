@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 function Phonebook() {
   return (
     <div className={css.phonebook}>
-      <div className={css.conactForm}>
+      <div className={css.contactForm}>
         <ContactForm ></ContactForm>
       </div>
 
